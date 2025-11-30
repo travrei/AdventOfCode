@@ -1,5 +1,3 @@
-Here's the rewritten section with emojis added:
-
 # Advent Of Code 🎄
 
 ---
