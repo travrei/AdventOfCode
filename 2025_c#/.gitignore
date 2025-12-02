@@ -1,0 +1,41 @@
+# C# .gitignore
+# Ignore Visual Studio temporary files, build results, and user-specific files
+[Dd]ebug/
+[Rr]elease/
+bin/
+obj/
+*.user
+*.suo
+*.cache
+*.vspscc
+*.vssscc
+*.userosscache
+*.sln.docstates
+*.DotSettings.user
+
+# Ignore NuGet packages
+packages/
+*.nupkg
+
+# Ignore IDE-specific files
+.vscode/
+.idea/
+*.swp
+
+# Ignore test results
+TestResults/
+
+# Ignore user-specific files
+*.userprefs
+
+# Ignore build log files
+*.log
+
+# Ignore macOS system files
+.DS_Store
+
+# Ignore JetBrains Rider files
+.idea/
+*.sln.iml
+*.iws
+*.ipr
