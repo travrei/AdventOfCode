@@ -7,6 +7,7 @@ using System.Linq;
 string filePath = @"/home/andreie/dev/adventofcode/2025_c#/day1/input.txt";
 int dial = 50; //Setting the dial to start at the position 50
 int passwd = 0; //The password count
+int distanceToZero = 0; //Here is for count how many times I got a click
 
 try
 {
@@ -22,9 +23,18 @@ try
         //If 'R' I'll sum the dial
         {
             case "L":
+                if (dial == 0) //If dial is 0, distance is 100
+                {
+                    distanceToZero = 100;
+                }
+                else //Else, distance is the dial
+                {
+                    distanceToZero = dial;
+                }
                 dial -= number;
                 break;
             case "R":
+                distanceToZero = 100 - dial;
                 dial += number;
                 break;
             default:
@@ -34,10 +44,13 @@ try
         line_number++; //Again, just to follow in witch line I'm at
         
         Console.WriteLine($"{line_number}: {letter} {number} --> {dial}");
-        //If The Dial stops on 0... I add one to the password.
-        if (dial == 0)
+        //Check if i got to the first Zero
+        if (number >= distanceToZero)
         {
             passwd++;
+            //After the first moviment, how many moviments is left?
+            int leftOver = number - distanceToZero;
+            passwd += leftOver / 100; //Here is how many loops "fit" in 100
         }
     }
     
