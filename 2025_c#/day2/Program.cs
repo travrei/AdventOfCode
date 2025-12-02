@@ -22,14 +22,32 @@ try
         for (long i = start; i <= end; i++) //Making a loop with the id's numbers
         {
             string numberToVerify = i.ToString(); //Converting the number to string!
-            //Dividing the numbers in half
-            //If it's odd, the check will always be false
-            //If is pair we check
-            string half1 = numberToVerify.Substring(0, numberToVerify.Length / 2);
-            string half2 = numberToVerify.Substring(numberToVerify.Length / 2);
-            
-            //If the first half is equal to the second, we got a invalid ID!
-            if (half1 == half2)
+            bool isInvalid = false; 
+            //We are going to test the patterns to se if fits
+            for (int len = 1; len <= numberToVerify.Length / 2; len++)
+            {
+                if(numberToVerify.Length % len != 0) continue; //If total isn't divisible by the size of a pattern, we skip
+                
+                //We get the "candidate" a pattern
+                string pattern = numberToVerify.Substring(0, len);
+                
+                //Let's rebuild the string using this pattern to se if fits
+                //I know this can be optimized, but I'm on vacation of my job so... Quick & Dirt it's!
+                string rebuild = "";
+                int repetitions = numberToVerify.Length / len;
+                for (int k = 0; k < repetitions; k++)
+                {
+                    rebuild += pattern;
+                }
+
+                if (rebuild == numberToVerify)
+                {
+                    isInvalid = true; //If I rebuild the pattern and we ended up with the same string as we started, we find a invalid ID!
+                    break;
+                }
+            }
+
+            if (isInvalid)
             {
                 totalSum += i;
             }
