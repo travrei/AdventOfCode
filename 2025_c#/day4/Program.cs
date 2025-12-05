@@ -1,8 +1,8 @@
 using System;
 using System.IO;
 
-// Grabbing the input (Again Fullpath just because I'm on vacation)
-string filePath = @"/home/andreie/dev/adventofcode/2025_c#/day4/input.txt";
+// Grabbing the input
+string filePath = @"input.txt";
 
 int totalRemoved = 0;
 

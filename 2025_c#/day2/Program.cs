@@ -2,7 +2,7 @@ using System;
 using System.IO;
 
 //Getting the input file
-string filePath = @"/home/andreie/dev/adventofcode/2025_c#/day2/input.txt";
+string filePath = @"input.txt";
 
 try
 {
@@ -22,15 +22,15 @@ try
         for (long i = start; i <= end; i++) //Making a loop with the id's numbers
         {
             string numberToVerify = i.ToString(); //Converting the number to string!
-            bool isInvalid = false; 
+            bool isInvalid = false;
             //We are going to test the patterns to se if fits
             for (int len = 1; len <= numberToVerify.Length / 2; len++)
             {
-                if(numberToVerify.Length % len != 0) continue; //If total isn't divisible by the size of a pattern, we skip
-                
+                if (numberToVerify.Length % len != 0) continue; //If total isn't divisible by the size of a pattern, we skip
+
                 //We get the "candidate" a pattern
                 string pattern = numberToVerify.Substring(0, len);
-                
+
                 //Let's rebuild the string using this pattern to se if fits
                 //I know this can be optimized, but I'm on vacation of my job so... Quick & Dirt it's!
                 string rebuild = "";

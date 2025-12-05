@@ -1,10 +1,10 @@
-﻿//This is the code that I used to find the solution for the first part!
+//This is the code that I used to find the solution for the first part!
 using System;
 using System.IO;
 using System.Linq;
 
 //Reading the input file
-string filePath = @"/home/andreie/dev/adventofcode/2025_c#/day1/input.txt";
+string filePath = @"input.txt";
 int dial = 50; //Setting the dial to start at the position 50
 int passwd = 0; //The password count
 int distanceToZero = 0; //Here is for count how many times I got a click
@@ -42,7 +42,7 @@ try
         }
         dial = ((dial % 100) + 100) % 100; //The % op. Is making sure that I never goes up 99 or bellow 0
         line_number++; //Again, just to follow in witch line I'm at
-        
+
         Console.WriteLine($"{line_number}: {letter} {number} --> {dial}");
         //Check if i got to the first Zero
         if (number >= distanceToZero)
@@ -53,7 +53,7 @@ try
             passwd += leftOver / 100; //Here is how many loops "fit" in 100
         }
     }
-    
+
     Console.WriteLine($"Passwd: {passwd}"); //The result for the site
 }
 //If I can't open the file...
