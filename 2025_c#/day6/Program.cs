@@ -63,57 +63,95 @@ try
 }
 catch (IOException e)
 {
-    // Handle file I/O errors
+    // Handle file I/O errors and display the error message
     Console.WriteLine($"A Error Has Occured: {e.Message}");
 }
 
 
 // Solves a mathematical expression within a block of the grid
-// Parameters: grid (the input grid), startCol (inclusive), endCol (exclusive)
-// Returns the result of applying the operation to all numbers found
+// startCol: the starting column index (inclusive) of the block to process
+// endCol: the ending column index (exclusive) of the block to process
+// Returns: the calculated result after applying the operation to all numbers
 long SolveBlock(string[] grid, int startCol, int endCol)
 {
     // List to store all numeric values found in this block
     List<long> numbers = new List<long>();
 
-    // The operation to apply between numbers ('?' = no operation found)
+    // The operation to apply between numbers ('?' means no operation was found)
     char operation = '?';
 
-    // Process each row in the grid
-    for (int row = 0; row < grid.Length; row++)
+    // Get the index of the last row (bottom row containing the operation)
+    int lastRowIndex = grid.Length - 1;
+
+    // Scan the last row within the block to find the operation symbol
+    for (int c = startCol; c < endCol; c++)
     {
-        // Extract the substring for this block from the current row
-        int length = endCol - startCol;
-        string element = grid[row].Substring(startCol, length).Trim();
+        char symbol = grid[lastRowIndex][c];
 
-        // Skip empty elements
-        if (string.IsNullOrEmpty(element)) continue;
-
-        // Try to parse the element as a number
-        if (long.TryParse(element, out long number))
+        // Identify the operation type (+, *, or unknown)
+        switch (symbol)
         {
-            numbers.Add(number);
-        }
-        // Check if the element is a valid operator (+ or *)
-        else if (element == "+" || element == "*")
-        {
-            operation = element[0];
+            case '+':
+                operation = '+';
+                break;
+            case '*':
+                operation = '*';
+                break;
+            default:
+                break;
         }
     }
 
-    // Return 0 if no valid operator or numbers were found
-    if (operation == '?' || numbers.Count == 0) return 0;
+    // If no valid operation was found, return 0 as the result
+    if (operation == '?') return 0;
 
-    // Start with the first number as the initial result
+    // Iterate through columns from right to left to extract numbers
+    for (int col = endCol - 1; col >= startCol; col--)
+    {
+        // String to accumulate digits from current column
+        string numStr = "";
+
+        // Scan all rows (except the last one) in this column for digits
+        for (int row = 0; row < lastRowIndex; row++)
+        {
+            char c = grid[row][col];
+
+            // Append digit characters to build the number string
+            if (char.IsDigit(c))
+            {
+                numStr += c;
+            }
+        }
+
+        // If a number was found, convert it to long and add to list
+        if (!string.IsNullOrEmpty(numStr))
+        {
+            numbers.Add(long.Parse(numStr));
+        }
+    }
+
+    // If no numbers were found, return 0 as the result
+    if (numbers.Count == 0) return 0;
+
+    // Initialize result with the first number in the list
     long result = numbers[0];
 
     // Apply the operation to each subsequent number
     for (int i = 1; i < numbers.Count; i++)
     {
-        if (operation == '+') result += numbers[i];
-        if (operation == '*') result *= numbers[i];
+        switch (operation)
+        {
+            case '+':
+                // Add the current number to the result
+                result += numbers[i];
+                break;
+            case '*':
+                // Multiply the result by the current number
+                result *= numbers[i];
+                break;
+        }
     }
 
-    // Return the final calculated result for this block
+    // Return the final calculated result
     return result;
 }
