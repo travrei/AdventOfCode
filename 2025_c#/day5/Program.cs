@@ -11,7 +11,7 @@ try
 
     // A flag to determine if the current line being processed is an ID or a range.
     bool isID = false;
-    
+
     // A list to store the ranges. Each range is a tuple of (min, max).
     List<(long Min, long Max)> ranges = new List<(long Min, long Max)>();
     // A list to store the IDs.
@@ -19,7 +19,7 @@ try
 
     // A counter for the number of IDs that fall within the ranges.
     int totalFresh = 0;
-    
+
     // Iterate over each line in the file.
     foreach (string linestr in fileContentLines)
     {
@@ -42,15 +42,15 @@ try
         // Otherwise, process the line as an ID.
         //else ids.Add(long.Parse(linestr));
     }
-    
+
     //Sorted the List of tuples
     ranges.Sort();
     long totalCovered = 0;
     long currentMin = ranges[0].Min; // Initialize with the first range's min
     long currentMax = ranges[0].Max; // Initialize with the first range's max
-    
+
     // Iterate through the sorted ranges to merge overlapping ones
-    for (int i = 1; i < ranges.Count; i++) 
+    for (int i = 1; i < ranges.Count; i++)
     {
         long nextMin = ranges[i].Min; // Get the min of the next range
         long nextMax = ranges[i].Max; // Get the max of the next range
@@ -66,7 +66,7 @@ try
             currentMax = nextMax; // Start a new merged range with the next range's max
         }
     }
-    
+
     totalCovered += (currentMax - currentMin + 1); // Add the last merged range
     Console.WriteLine($"{totalCovered}");
     /*
